@@ -1,11 +1,13 @@
 package br.ufal.ic.p2.bikeshare;
 
+import br.ufal.ic.p2.bikeshare.bicicleta.BicicletaRepositorio;
+import br.ufal.ic.p2.bikeshare.estacao.EstacaoRepositorio;
+import br.ufal.ic.p2.bikeshare.estacao.EstacaoServico;
 import br.ufal.ic.p2.bikeshare.exceptions.MetodoPagamentoInvalidoException;
 import br.ufal.ic.p2.bikeshare.exceptions.TipoInvalidoException;
 import br.ufal.ic.p2.bikeshare.usuario.UsuarioFabrica;
 import br.ufal.ic.p2.bikeshare.usuario.UsuarioRepositorio;
 import br.ufal.ic.p2.bikeshare.usuario.UsuarioServico;
-import br.ufal.ic.p2.bikeshare.util.Formatador;
 
 public class Facade {
 
@@ -13,6 +15,9 @@ public class Facade {
 
     private UsuarioRepositorio usuarioRepositorio;
     private UsuarioServico usuarioServico;
+    private EstacaoRepositorio estacaoRepositorio;
+    private BicicletaRepositorio bicicletaRepositorio;
+    private EstacaoServico estacaoServico;
 
     public Facade() {
         inicializar();
@@ -22,6 +27,9 @@ public class Facade {
         this.usuarioRepositorio = UsuarioRepositorio.carregar();
         UsuarioFabrica fabrica = new UsuarioFabrica();
         this.usuarioServico = new UsuarioServico(usuarioRepositorio, fabrica);
+        this.estacaoRepositorio = EstacaoRepositorio.carregar();
+        this.bicicletaRepositorio = BicicletaRepositorio.carregar();
+        this.estacaoServico = new EstacaoServico(estacaoRepositorio, bicicletaRepositorio);
     }
 
     public String criarUsuario(String nome, String email, String senha, String tipo, String cpfOuCnpj) {
@@ -106,35 +114,35 @@ public class Facade {
     }
 
     public String criarEstacao(String nome, String endereco, String capacidade) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        return estacaoServico.criarEstacao(nome, endereco, capacidade);
     }
 
     public void adicionarBicicleta(String estacao, String bicicleta, String tipo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        estacaoServico.adicionarBicicleta(estacao, bicicleta, tipo);
     }
 
     public void adicionarBicicleta(String estacao, String bicicleta, String tipo, String nivelBateria) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        estacaoServico.adicionarBicicleta(estacao, bicicleta, tipo, nivelBateria);
     }
 
     public void removerBicicleta(String estacao, String bicicleta) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        estacaoServico.removerBicicleta(estacao, bicicleta);
     }
 
     public String getAtributoBicicleta(String bicicleta, String atributo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        return estacaoServico.getAtributoBicicleta(bicicleta, atributo);
     }
 
     public String getBicicletasDisponiveis(String estacao) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        return String.valueOf(estacaoServico.getBicicletasDisponiveis(estacao));
     }
 
     public String getVagasDisponiveis(String estacao) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        return String.valueOf(estacaoServico.getVagasDisponiveis(estacao));
     }
 
     public String getEstadoBicicleta(String bicicleta) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        return estacaoServico.getEstadoBicicleta(bicicleta);
     }
 
     public String retirarBicicleta(String usuario, String estacao, String bicicleta, String data) {
@@ -165,11 +173,11 @@ public class Facade {
         throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
     }
 
-    public void concluiManutencao(String bicicleta) {
+    public void lancaDefeito(String bicicleta, String descricao) {
         throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
     }
 
-    public void lancaDefeito(String bicicleta, String descricao) {
+    public void concluiManutencao(String bicicleta) {
         throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
     }
 
@@ -187,10 +195,14 @@ public class Facade {
 
     public void zerarSistema() {
         usuarioRepositorio.zerar();
+        estacaoRepositorio.zerar();
+        bicicletaRepositorio.zerar();
         inicializar();
     }
 
     public void encerrarSistema() {
         usuarioRepositorio.salvar();
+        estacaoRepositorio.salvar();
+        bicicletaRepositorio.salvar();
     }
 }

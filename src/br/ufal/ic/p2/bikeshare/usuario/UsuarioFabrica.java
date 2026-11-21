@@ -5,7 +5,6 @@ import br.ufal.ic.p2.bikeshare.exceptions.MensalidadeDeveSerNumericaException;
 import br.ufal.ic.p2.bikeshare.exceptions.MensalidadeNulaNaoPermitidaException;
 import br.ufal.ic.p2.bikeshare.exceptions.PlanoInvalidoException;
 import br.ufal.ic.p2.bikeshare.exceptions.PlanoNaoPossuiMensalidadeException;
-import br.ufal.ic.p2.bikeshare.exceptions.TipoInvalidoException;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
 public class UsuarioFabrica {
