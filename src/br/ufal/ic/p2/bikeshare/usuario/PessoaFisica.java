@@ -2,6 +2,9 @@ package br.ufal.ic.p2.bikeshare.usuario;
 
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Representa um usuário do tipo pessoa física (portador de CPF).
+ */
 public class PessoaFisica extends Usuario {
 
     private final String cpf;

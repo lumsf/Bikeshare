@@ -1,5 +1,8 @@
 package br.ufal.ic.p2.bikeshare.util;
 
+/**
+ * Utilitário para validação e formatação de dados textuais e monetários.
+ */
 public class Formatador {
 
     public static boolean estaVazio(String texto) {

@@ -3,6 +3,9 @@ package br.ufal.ic.p2.bikeshare.bicicleta;
 import java.io.Serializable;
 import br.ufal.ic.p2.bikeshare.exceptions.BicicletaNaoPossuiBateriaException;
 
+/**
+ * Classe base para os veículos do sistema de compartilhamento.
+ */
 public abstract class Bicicleta implements Serializable {
 
     private final String id;

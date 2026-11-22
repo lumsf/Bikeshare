@@ -1,5 +1,7 @@
 package br.ufal.ic.p2.bikeshare;
 
+import br.ufal.ic.p2.bikeshare.aluguel.AluguelRepositorio;
+import br.ufal.ic.p2.bikeshare.aluguel.AluguelServico;
 import br.ufal.ic.p2.bikeshare.bicicleta.BicicletaRepositorio;
 import br.ufal.ic.p2.bikeshare.estacao.EstacaoRepositorio;
 import br.ufal.ic.p2.bikeshare.estacao.EstacaoServico;
@@ -9,6 +11,10 @@ import br.ufal.ic.p2.bikeshare.usuario.UsuarioFabrica;
 import br.ufal.ic.p2.bikeshare.usuario.UsuarioRepositorio;
 import br.ufal.ic.p2.bikeshare.usuario.UsuarioServico;
 
+/**
+ * Fachada principal do sistema Bikeshare.
+ * Centraliza as operações do sistema delegando para os serviços especialistas.
+ */
 public class Facade {
 
     private static final String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado.";
@@ -18,6 +24,8 @@ public class Facade {
     private EstacaoRepositorio estacaoRepositorio;
     private BicicletaRepositorio bicicletaRepositorio;
     private EstacaoServico estacaoServico;
+    private AluguelRepositorio aluguelRepositorio;
+    private AluguelServico aluguelServico;
 
     public Facade() {
         inicializar();
@@ -30,6 +38,8 @@ public class Facade {
         this.estacaoRepositorio = EstacaoRepositorio.carregar();
         this.bicicletaRepositorio = BicicletaRepositorio.carregar();
         this.estacaoServico = new EstacaoServico(estacaoRepositorio, bicicletaRepositorio);
+        this.aluguelRepositorio = AluguelRepositorio.carregar();
+        this.aluguelServico = new AluguelServico(aluguelRepositorio, usuarioRepositorio, estacaoRepositorio, bicicletaRepositorio);
     }
 
     public String criarUsuario(String nome, String email, String senha, String tipo, String cpfOuCnpj) {
@@ -146,11 +156,11 @@ public class Facade {
     }
 
     public String retirarBicicleta(String usuario, String estacao, String bicicleta, String data) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        return aluguelServico.retirarBicicleta(usuario, estacao, bicicleta, data);
     }
 
     public void devolverBicicleta(String aluguel, String estacao, String data) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        aluguelServico.devolverBicicleta(aluguel, estacao, data);
     }
 
     public String getHistoricoAlugueis(String usuario) {
@@ -162,7 +172,7 @@ public class Facade {
     }
 
     public String getAtributoAluguel(String aluguel, String atributo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+        return aluguelServico.getAtributoAluguel(aluguel, atributo);
     }
 
     public String criarPlano(String nome, String franquiaMinutos, String valorMinutoExcedente, String mensalidade) {
@@ -173,11 +183,11 @@ public class Facade {
         throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
     }
 
-    public void lancaDefeito(String bicicleta, String descricao) {
+    public void concluiManutencao(String bicicleta) {
         throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
     }
 
-    public void concluiManutencao(String bicicleta) {
+    public void lancaDefeito(String bicicleta, String descricao) {
         throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
     }
 
@@ -197,6 +207,7 @@ public class Facade {
         usuarioRepositorio.zerar();
         estacaoRepositorio.zerar();
         bicicletaRepositorio.zerar();
+        aluguelRepositorio.zerar();
         inicializar();
     }
 
@@ -204,5 +215,6 @@ public class Facade {
         usuarioRepositorio.salvar();
         estacaoRepositorio.salvar();
         bicicletaRepositorio.salvar();
+        aluguelRepositorio.salvar();
     }
 }

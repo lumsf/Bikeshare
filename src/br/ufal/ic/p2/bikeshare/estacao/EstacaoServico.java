@@ -7,6 +7,9 @@ import br.ufal.ic.p2.bikeshare.bicicleta.BicicletaRepositorio;
 import br.ufal.ic.p2.bikeshare.exceptions.*;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Serviço que implementa as regras de negócio para estações e suas bicicletas associadas.
+ */
 public class EstacaoServico {
 
     private final EstacaoRepositorio estacaoRepositorio;

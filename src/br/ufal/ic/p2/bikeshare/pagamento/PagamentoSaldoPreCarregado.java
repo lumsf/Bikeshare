@@ -2,6 +2,9 @@ package br.ufal.ic.p2.bikeshare.pagamento;
 
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Implementação de pagamento via saldo pré-carregado em conta.
+ */
 public class PagamentoSaldoPreCarregado extends MetodoPagamento {
 
     private double saldo;

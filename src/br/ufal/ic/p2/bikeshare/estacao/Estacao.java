@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa uma estação física do sistema com capacidade definida para estacionar bicicletas.
+ */
 public class Estacao implements Serializable {
 
     private final String id;

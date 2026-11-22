@@ -9,9 +9,12 @@ import br.ufal.ic.p2.bikeshare.exceptions.BicicletaIdNulaException;
 import br.ufal.ic.p2.bikeshare.exceptions.BicicletaNaoExisteException;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Repositório responsável pelo armazenamento e recuperação de bicicletas.
+ */
 public class BicicletaRepositorio implements Serializable {
 
-    private static final String ARQUIVO_DADOS = "relatorio/bicicletas.dat";
+    private static final String ARQUIVO_DADOS = "dados/bicicletas.dat";
 
     private final Map<String, Bicicleta> bicicletas;
 
@@ -50,7 +53,9 @@ public class BicicletaRepositorio implements Serializable {
     public void salvar() {
         try {
             File arquivo = new File(ARQUIVO_DADOS);
-            arquivo.getParentFile().mkdirs();
+            if (arquivo.getParentFile() != null) {
+                arquivo.getParentFile().mkdirs();
+            }
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
                 oos.writeObject(this);
             }

@@ -9,9 +9,12 @@ import br.ufal.ic.p2.bikeshare.exceptions.EstacaoIdNulaException;
 import br.ufal.ic.p2.bikeshare.exceptions.EstacaoNaoExisteException;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Repositório responsável pela persistência e busca de estações.
+ */
 public class EstacaoRepositorio implements Serializable {
 
-    private static final String ARQUIVO_DADOS = "relatorio/estacoes.dat";
+    private static final String ARQUIVO_DADOS = "dados/estacoes.dat";
 
     private final Map<String, Estacao> estacoes;
     private int proximoId;
@@ -53,7 +56,9 @@ public class EstacaoRepositorio implements Serializable {
     public void salvar() {
         try {
             File arquivo = new File(ARQUIVO_DADOS);
-            arquivo.getParentFile().mkdirs();
+            if (arquivo.getParentFile() != null) {
+                arquivo.getParentFile().mkdirs();
+            }
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
                 oos.writeObject(this);
             }

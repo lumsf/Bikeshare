@@ -8,6 +8,9 @@ import br.ufal.ic.p2.bikeshare.pagamento.MetodoPagamento;
 import br.ufal.ic.p2.bikeshare.pagamento.PagamentoSaldoPreCarregado;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Classe base abstrata para usuários do sistema.
+ */
 public abstract class Usuario implements Serializable {
 
     private final String id;
@@ -19,6 +22,8 @@ public abstract class Usuario implements Serializable {
     private double mensalidade;
     private MetodoPagamento metodoPagamento;
     private double saldoPreCarregadoHistorico;
+    private String aluguelAtivoId;
+    private double totalPendencias;
 
     public Usuario(String id, String nome, String email, String senha) {
         this.id = id;
@@ -27,6 +32,8 @@ public abstract class Usuario implements Serializable {
         this.mensalidade = 0.0;
         this.metodoPagamento = null;
         this.saldoPreCarregadoHistorico = 0.0;
+        this.aluguelAtivoId = null;
+        this.totalPendencias = 0.0;
         setNome(nome);
         setEmail(email);
         setSenha(senha);
@@ -54,6 +61,26 @@ public abstract class Usuario implements Serializable {
 
     public void setSaldoPreCarregadoHistorico(double saldo) {
         this.saldoPreCarregadoHistorico = saldo;
+    }
+
+    public String getAluguelAtivoId() {
+        return aluguelAtivoId != null ? aluguelAtivoId : "nenhum";
+    }
+
+    public boolean temAluguelAtivo() {
+        return aluguelAtivoId != null;
+    }
+
+    public void setAluguelAtivoId(String aluguelAtivoId) {
+        this.aluguelAtivoId = aluguelAtivoId;
+    }
+
+    public double getTotalPendencias() {
+        return totalPendencias;
+    }
+
+    public void adicionarPendencia(double valor) {
+        this.totalPendencias += valor;
     }
 
     public void setNome(String nome) {

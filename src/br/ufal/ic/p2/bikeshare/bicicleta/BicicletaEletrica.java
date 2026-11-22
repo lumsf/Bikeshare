@@ -1,5 +1,8 @@
 package br.ufal.ic.p2.bikeshare.bicicleta;
 
+/**
+ * Representa uma bicicleta elétrica com controle de nível de bateria.
+ */
 public class BicicletaEletrica extends Bicicleta {
 
     private int nivelBateria;

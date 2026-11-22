@@ -2,6 +2,9 @@ package br.ufal.ic.p2.bikeshare.pagamento;
 
 import java.io.Serializable;
 
+/**
+ * Contrato abstrato para diferentes estratégias de pagamento.
+ */
 public abstract class MetodoPagamento implements Serializable {
 
     public abstract String getTipo();

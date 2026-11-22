@@ -4,6 +4,9 @@ import br.ufal.ic.p2.bikeshare.exceptions.*;
 import br.ufal.ic.p2.bikeshare.pagamento.*;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Serviço que implementa as regras de negócio relacionadas aos usuários.
+ */
 public class UsuarioServico {
 
     private static final String PLANO_AVULSO = "avulso";
@@ -111,9 +114,9 @@ public class UsuarioServico {
                 }
                 return Formatador.formatarDinheiro(u.getMetodoPagamento().getSaldo());
             case "aluguelAtivo":
-                return "nenhum";
+                return u.getAluguelAtivoId();
             case "totalPendencias":
-                return Formatador.formatarDinheiro(0);
+                return Formatador.formatarDinheiro(u.getTotalPendencias());
             default:
                 throw new AtributoNaoExisteException();
         }
@@ -189,6 +192,10 @@ public class UsuarioServico {
     }
 
     public void removerUsuario(String usuarioId) {
+        Usuario usuario = repositorio.buscarPorId(usuarioId);
+        if (usuario.temAluguelAtivo()) {
+            throw new UsuarioComAluguelEmAndamentoException();
+        }
         repositorio.remover(usuarioId);
     }
 

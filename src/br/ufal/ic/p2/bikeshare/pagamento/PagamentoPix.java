@@ -3,6 +3,9 @@ package br.ufal.ic.p2.bikeshare.pagamento;
 import br.ufal.ic.p2.bikeshare.exceptions.ChavePixNulaNaoPermitidaException;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Implementação de pagamento instantâneo via Pix.
+ */
 public class PagamentoPix extends MetodoPagamento {
 
     private String chavePix;

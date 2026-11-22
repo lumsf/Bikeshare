@@ -9,9 +9,12 @@ import br.ufal.ic.p2.bikeshare.exceptions.UsuarioIdNuloException;
 import br.ufal.ic.p2.bikeshare.exceptions.UsuarioNaoExisteException;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Repositório responsável pela persistência e busca dos dados de usuários.
+ */
 public class UsuarioRepositorio implements Serializable {
 
-    private static final String ARQUIVO_DADOS = "relatorio/usuarios.dat";
+    private static final String ARQUIVO_DADOS = "dados/usuarios.dat";
 
     private List<Usuario> usuarios;
     private int proximoId;
@@ -90,7 +93,9 @@ public class UsuarioRepositorio implements Serializable {
     public void salvar() {
         try {
             File arquivo = new File(ARQUIVO_DADOS);
-            arquivo.getParentFile().mkdirs();
+            if (arquivo.getParentFile() != null) {
+                arquivo.getParentFile().mkdirs();
+            }
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
                 oos.writeObject(this);
             }

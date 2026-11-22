@@ -5,6 +5,9 @@ import br.ufal.ic.p2.bikeshare.exceptions.ValidadeCartaoInvalidaException;
 import br.ufal.ic.p2.bikeshare.exceptions.ValidadeCartaoNulaException;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Implementação de pagamento via cartão de crédito ou débito.
+ */
 public class PagamentoCartao extends MetodoPagamento {
 
     private String numeroCartao;

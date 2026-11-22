@@ -7,6 +7,9 @@ import br.ufal.ic.p2.bikeshare.exceptions.PlanoInvalidoException;
 import br.ufal.ic.p2.bikeshare.exceptions.PlanoNaoPossuiMensalidadeException;
 import br.ufal.ic.p2.bikeshare.util.Formatador;
 
+/**
+ * Fábrica para instanciação e validação de tipos e planos de usuário.
+ */
 public class UsuarioFabrica {
 
     private static final String PLANO_AVULSO = "avulso";
